@@ -1,0 +1,24 @@
+{
+  "$schema": "https://nitro.margelo.com/nitro.schema.json",
+  "cxxNamespace": [
+    "retraining"
+  ],
+  "ios": {
+    "iosModuleName": "Retraining"
+  },
+  "android": {
+    "androidNamespace": [
+      "retraining"
+    ],
+    "androidCxxLibName": "Retraining"
+  },
+  "autolinking": {
+    "Retraining": {
+      "swift": "HybridRetraining",
+      "kotlin": "HybridRetraining"
+    }
+  },
+  "ignorePaths": [
+    "**/node_modules"
+  ]
+}
