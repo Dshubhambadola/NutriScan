@@ -1,0 +1,13 @@
+diff --git a/node_modules/react-native-background-fetch/expo/plugin/build/iOSPlugin.js b/node_modules/react-native-background-fetch/expo/plugin/build/iOSPlugin.js
+index 3098e07..cf8d78b 100644
+--- a/node_modules/react-native-background-fetch/expo/plugin/build/iOSPlugin.js
++++ b/node_modules/react-native-background-fetch/expo/plugin/build/iOSPlugin.js
+@@ -49,7 +49,7 @@ const modifySwiftAppDelegate = (src) => {
+         tag: "react-native-background-fetch-import",
+         src,
+         newSrc: "import TSBackgroundFetch",
+-        anchor: /@UIApplicationMain/,
++        anchor: /(?:@UIApplicationMain|@main)/,
+         offset: -1,
+         comment: "//",
+     }).contents;
