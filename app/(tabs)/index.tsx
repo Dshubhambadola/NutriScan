@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import { useMealStore } from '../../stores/mealStore';
 import { CalorieRing } from '../../components/CalorieRing';
 import { MacroBars } from '../../components/MacroBars';
 
 export default function HomeScreen() {
+    const router = useRouter();
     const {
         currentDateStr,
         dailyGoal,
@@ -60,10 +62,10 @@ export default function HomeScreen() {
                 <Text style={styles.sectionTitle}>Meals Today</Text>
 
                 {meals.length === 0 ? (
-                    <View style={styles.emptyState}>
+                    <TouchableOpacity style={styles.emptyState} onPress={() => router.push('/scan')}>
                         <MaterialCommunityIcons name="food-apple-outline" size={48} color="#475569" />
-                        <Text style={styles.emptyText}>No meals logged today</Text>
-                    </View>
+                        <Text style={styles.emptyText}>Tap to Scan a Meal</Text>
+                    </TouchableOpacity>
                 ) : (
                     meals.map((meal, index) => (
                         <View key={index} style={styles.mealCard}>

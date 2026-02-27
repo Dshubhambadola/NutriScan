@@ -1,10 +1,12 @@
 import React, { useMemo } from 'react';
 import { StyleSheet, View, Text, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import { useMealStore } from '../../stores/mealStore';
 import { MealLog } from '../../data/MealRepository';
 
 export default function DiaryScreen() {
+    const router = useRouter();
     const { meals, dailyGoal, totalCalories, currentDateStr } = useMealStore();
 
     const groupedMeals = useMemo(() => {
@@ -69,7 +71,7 @@ export default function DiaryScreen() {
                             </View>
 
                             {items.length === 0 ? (
-                                <TouchableOpacity style={styles.emptyAdd}>
+                                <TouchableOpacity style={styles.emptyAdd} onPress={() => router.push('/scan')}>
                                     <MaterialCommunityIcons name="silverware-fork-knife" size={32} color="#475569" />
                                     <Text style={styles.emptyAddText}>Log your {mealType.toLowerCase()}</Text>
                                 </TouchableOpacity>
