@@ -37,6 +37,10 @@ export const useMealStore = create<MealState>((set, get) => ({
 
     loadInitialData: async () => {
         const { currentDateStr } = get();
+        // Ensure tables exist before querying
+        const { initStores } = require('../data/database');
+        initStores();
+
         const logs = await MealRepository.getLogsForDate(currentDateStr);
         const goal = await MealRepository.getGoalForDate(currentDateStr);
 

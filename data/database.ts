@@ -1,7 +1,33 @@
 import { open } from '@op-engineering/op-sqlite';
 
-// OP-SQLite will look for this in the user's document directory by default
-// For a bundled DB in assets, you would typically use {name: 'ifct2017.db', location: 'Assets'}
-// but 'location' prop varies depending on library version. We will rely on default for now,
-// or use Expo FileSystem to copy it if needed.
 export const db = open({ name: 'ifct2017.db' });
+
+export function initStores() {
+    try {
+        db.executeSync(`
+            CREATE TABLE IF NOT EXISTS meal_logs (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                food_id INTEGER,
+                food_name TEXT NOT NULL,
+                meal_type TEXT NOT NULL,
+                grams REAL NOT NULL,
+                calories REAL NOT NULL,
+                carbs REAL NOT NULL,
+                fat REAL NOT NULL,
+                protein REAL NOT NULL,
+                fiber REAL DEFAULT 0,
+                logged_at INTEGER NOT NULL
+            );
+        `);
+
+        db.executeSync(`
+            CREATE TABLE IF NOT EXISTS daily_goals (
+                date TEXT PRIMARY KEY,
+                calorie_goal INTEGER NOT NULL
+            );
+        `);
+        console.log("DB stores initialized successfully.");
+    } catch (e) {
+        console.error("Failed to initialize DB stores:", e);
+    }
+}
